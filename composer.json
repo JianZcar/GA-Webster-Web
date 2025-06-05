@@ -1,0 +1,19 @@
+{
+    "name": "jian/ga-webster-web",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Jian\\GaWebsterWeb\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JianZcar",
+            "email": "esteban.jianzcar@outlook.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.14",
+        "slim/psr7": "^1.7"
+    }
+}
