@@ -8,14 +8,8 @@
   <title>Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-  <style>
-    .htmx-indicator {
-      display: none;
-    }
+  <link href="css/style.css" rel="stylesheet">
 
-    .htmx-request .htmx-indicator {
-      display: inline-block;
-    }
   </style>
 </head>
 

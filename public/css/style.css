@@ -1,15 +1,19 @@
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   overflow: hidden;
 }
+
 svg {
   cursor: crosshair;
 }
+
 .grid line {
   stroke: #e0e0e0;
   stroke-width: 1px;
 }
+
 #header {
   position: absolute;
   top: 0;
@@ -18,14 +22,24 @@ svg {
   z-index: 10;
   padding: 4px 8px;
 }
+
 #network {
   position: absolute;
   top: 40px;
   left: 0;
 }
-.node-label, .edge-label {
+
+.node-label,
+.edge-label {
   font-size: 10px;
   text-anchor: middle;
   pointer-events: none;
 }
 
+.htmx-indicator {
+  display: none;
+}
+
+.htmx-request .htmx-indicator {
+  display: inline-block;
+}
