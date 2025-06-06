@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SUMO Road Layout Editor</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,4 +32,5 @@
   <svg id="network" width="100%" height="100%"></svg>
 </body>
 <script src="js/road-editor.js"></script>
+
 </html>
