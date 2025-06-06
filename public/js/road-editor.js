@@ -5,7 +5,7 @@ const height = window.innerHeight - 40;
 const zoom = d3.zoom().on("zoom", (event) => {
   g.attr("transform", event.transform);
 });
-svg.call(zoom);
+svg.call(zoom).on("dblclick.zoom", null);
 
 const g = svg.append("g");
 
@@ -13,10 +13,10 @@ const g = svg.append("g");
 const grid = g.append("g").attr("class", "grid");
 const gridSize = 20;
 for (let x = -2000; x <= 2000; x += gridSize) {
-  grid.append("line").attr("x1", x).attr("y1", -2000).attr("x2", x).attr("y2", 2000);
+  grid.append("line").attr("x1", x).attr("y1", -2000).attr("x2", x).attr("y2", 2000).attr("stroke", "#eee");
 }
 for (let y = -2000; y <= 2000; y += gridSize) {
-  grid.append("line").attr("x1", -2000).attr("y1", y).attr("x2", 2000).attr("y2", y);
+  grid.append("line").attr("x1", -2000).attr("y1", y).attr("x2", 2000).attr("y2", y).attr("stroke", "#eee");
 }
 
 const marker = g.append("defs").append("marker")
@@ -34,15 +34,9 @@ const marker = g.append("defs").append("marker")
 const nodes = [], edges = [];
 let nodeCounter = 0, edgeCounter = 0;
 let selectedNode = null, fromNode = null;
-let rightHandTraffic = true;
 
 function getNode(id) {
   return nodes.find(n => n.id === id);
-}
-
-function calculateOffset(index, total) {
-  const spacing = 10;
-  return (index - (total - 1) / 2) * spacing;
 }
 
 function updateInputs(n) {
@@ -50,18 +44,27 @@ function updateInputs(n) {
   document.getElementById("nodeY").value = n?.y || "";
 }
 
+function edgeExists(source, target) {
+  return edges.some(e => e.source === source && e.target === target);
+}
+
+let rightHandTraffic = true;
+
+document.getElementById("toggleTraffic").addEventListener("click", () => {
+  rightHandTraffic = !rightHandTraffic;
+  document.getElementById("toggleTraffic").textContent =
+    `Traffic: ${rightHandTraffic ? "Right-Hand" : "Left-Hand"}`;
+  updateGraph();
+});
+
 function updateGraph() {
   g.selectAll("g.edge").remove();
   g.selectAll("g.node").remove();
   g.selectAll("text.edge-label").remove();
 
-  // Group edges by undirected pairs
-  const grouped = d3.groups(edges, d => [d.source, d.target].sort().join("-"));
-  grouped.forEach(([_, group]) => {
-    group.forEach((e, i) => {
-      const dir = (e.source < e.target) === rightHandTraffic ? 1 : -1;
-      e.offset = calculateOffset(i, group.length) * dir;
-    });
+  // Set offset based on traffic side
+  edges.forEach(e => {
+    e.offset = 10 * (rightHandTraffic ? 1 : -1);
   });
 
   // Draw edges
@@ -73,14 +76,12 @@ function updateGraph() {
     .on("contextmenu", (event, d) => {
       event.preventDefault();
       const index = edges.indexOf(d);
-      if (index > -1) {
-        edges.splice(index, 1);
-        if (selectedNode && (selectedNode.id === d.source || selectedNode.id === d.target)) {
-          selectedNode = null;
-          updateInputs(null);
-        }
-        updateGraph();
+      if (index > -1) edges.splice(index, 1);
+      if (selectedNode && (selectedNode.id === d.source || selectedNode.id === d.target)) {
+        selectedNode = null;
+        updateInputs(null);
       }
+      updateGraph();
     });
 
   edgeGroup.append("line")
@@ -89,32 +90,45 @@ function updateGraph() {
     .attr("marker-end", "url(#arrow)")
     .attr("x1", d => {
       const s = getNode(d.source), t = getNode(d.target);
-      const dx = t.y - s.y, dy = s.x - t.x, len = Math.hypot(dx, dy);
-      return s.x + dx / len * d.offset;
+      const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
+      return s.x + (-dy / len) * d.offset;
     })
     .attr("y1", d => {
       const s = getNode(d.source), t = getNode(d.target);
-      const dx = t.y - s.y, dy = s.x - t.x, len = Math.hypot(dx, dy);
-      return s.y + dy / len * d.offset;
+      const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
+      return s.y + (dx / len) * d.offset;
     })
     .attr("x2", d => {
       const s = getNode(d.source), t = getNode(d.target);
-      const dx = t.y - s.y, dy = s.x - t.x, len = Math.hypot(dx, dy);
-      return t.x + dx / len * d.offset;
+      const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
+      return t.x + (-dy / len) * d.offset;
     })
     .attr("y2", d => {
       const s = getNode(d.source), t = getNode(d.target);
-      const dx = t.y - s.y, dy = s.x - t.x, len = Math.hypot(dx, dy);
-      return t.y + dy / len * d.offset;
+      const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
+      return t.y + (dx / len) * d.offset;
     });
 
+  // Draw edge labels offset to right or left based on traffic mode
   g.selectAll("text.edge-label")
     .data(edges)
     .enter()
     .append("text")
     .attr("class", "edge-label")
-    .attr("x", d => (getNode(d.source).x + getNode(d.target).x) / 2)
-    .attr("y", d => (getNode(d.source).y + getNode(d.target).y) / 2 - 5)
+    .attr("x", d => {
+      const s = getNode(d.source), t = getNode(d.target);
+      const midX = (s.x + t.x) / 2;
+      const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
+      const offset = 2 * (rightHandTraffic ? 1 : -1) * 10;
+      return midX + (-dy / len) * offset;
+    })
+    .attr("y", d => {
+      const s = getNode(d.source), t = getNode(d.target);
+      const midY = (s.y + t.y) / 2;
+      const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
+      const offset = 2 * (rightHandTraffic ? 1 : -1) * 10;
+      return midY + (dx / len) * offset;
+    })
     .text(d => d.id);
 
   // Draw nodes
@@ -135,12 +149,9 @@ function updateGraph() {
       if (!fromNode) {
         fromNode = d;
       } else if (fromNode !== d) {
-        const existing = edges.filter(e =>
-          (e.source === fromNode.id && e.target === d.id) ||
-          (e.source === d.id && e.target === fromNode.id)
-        );
-        if (existing.length < 2 && !existing.find(e => e.source === fromNode.id && e.target === d.id)) {
-          edges.push({ id: `e${++edgeCounter}`, source: fromNode.id, target: d.id });
+        const a = fromNode.id, b = d.id;
+        if (!edgeExists(a, b)) {
+          edges.push({ id: `e${++edgeCounter}`, source: a, target: b });
         }
         fromNode = null;
       } else {
@@ -152,18 +163,15 @@ function updateGraph() {
     })
     .on("contextmenu", (event, d) => {
       event.preventDefault();
-      // Remove all edges connected to this node
       for (let i = edges.length - 1; i >= 0; i--) {
         if (edges[i].source === d.id || edges[i].target === d.id) {
           edges.splice(i, 1);
         }
       }
-      // Remove the node itself
       const index = nodes.indexOf(d);
-      if (index > -1) {
-        nodes.splice(index, 1);
-      }
+      if (index > -1) nodes.splice(index, 1);
       selectedNode = null;
+      fromNode = null;
       updateInputs(null);
       updateGraph();
     });
@@ -183,7 +191,8 @@ function updateGraph() {
     .text(d => d.id);
 }
 
-svg.on("click", function (event) {
+// Create nodes on svg click
+svg.on("click", function(event) {
   const [mx, my] = d3.pointer(event, g.node());
   const newNode = {
     id: `n${++nodeCounter}`,
@@ -191,9 +200,13 @@ svg.on("click", function (event) {
     y: my
   };
   nodes.push(newNode);
+  fromNode = null;
+  selectedNode = null;
+  updateInputs(null);
   updateGraph();
 });
 
+// Update node position from input fields
 document.getElementById("updateNode").addEventListener("click", () => {
   if (selectedNode) {
     selectedNode.x = parseFloat(document.getElementById("nodeX").value);
@@ -202,14 +215,8 @@ document.getElementById("updateNode").addEventListener("click", () => {
   }
 });
 
-document.getElementById("toggleTraffic").addEventListener("click", () => {
-  rightHandTraffic = !rightHandTraffic;
-  document.getElementById("toggleTraffic").innerText =
-    `Traffic: ${rightHandTraffic ? 'Right' : 'Left'}-Hand`;
-  updateGraph();
-});
-
-// Initial pan to center 0,0
+// Center zoom initially
 svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2));
 
 updateGraph();
+
