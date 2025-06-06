@@ -6,28 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>SUMO Road Layout Editor</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <link href="css/style.css" rel="stylesheet">
 
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
 
-  <div id="header" class="bg-light border-bottom d-flex align-items-center">
-    <strong class="me-3">SUMO Editor</strong>
-    <div class="input-group input-group-sm me-2" style="width: 100px;">
-      <span class="input-group-text">X</span>
-      <input type="number" id="nodeX" class="form-control" />
-    </div>
+  <div id="header" class="bg-gray-100 border-b flex items-center p-2">
+    <div class="flex items-center space-x-2">
+      <div class="flex items-center">
+        <span class="text-sm mr-2">X</span>
+        <input type="number" id="nodeX" class="w-24 py-1 px-2 text-sm border rounded-md" />
+      </div>
 
-    <div class="input-group input-group-sm me-2" style="width: 100px;">
-      <span class="input-group-text">Y</span>
-      <input type="number" id="nodeY" class="form-control" />
-    </div>
+      <div class="flex items-center">
+        <span class="text-sm mr-2">Y</span>
+        <input type="number" id="nodeY" class="w-24 py-1 px-2 text-sm border rounded-md" />
+      </div>
 
-    <button id="updateNode" class="btn btn-sm btn-primary me-2">Update</button>
-    <button id="toggleTraffic" class="btn btn-sm btn-secondary">Traffic: Right-Hand</button>
+      <button id="updateNode" class="btn btn-sm btn-primary me-2 px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">Update</button>
+      <button id="toggleTraffic" class="btn btn-sm btn-secondary px-3 py-1 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">Traffic: Right-Hand</button>
+    </div>
   </div>
 
   <svg id="network" width="100%" height="100%"></svg>

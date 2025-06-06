@@ -9,6 +9,10 @@ svg {
   cursor: crosshair;
 }
 
+dialog {
+  margin: revert;
+}
+
 .grid line {
   stroke: #e0e0e0;
   stroke-width: 1px;
@@ -40,6 +44,12 @@ svg {
   display: none;
 }
 
-.htmx-request .htmx-indicator {
+.htmx-request #spinner {
+  opacity: 100 !important;
   display: inline-block;
+}
+
+.htmx-request #submit-label {
+  opacity: 0 !important;
+  display: none !important;
 }

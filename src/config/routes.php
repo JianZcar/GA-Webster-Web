@@ -10,18 +10,11 @@ use flight\net\Router;
 
 $router->get('/', function () use ($app) {
   if (empty($_SESSION['username'])) {
+    $app->render('road-edit');
     $app->render('login');
     return;
   }
   $app->render('road-edit');
-});
-
-$router->get('/login', function () use ($app) {
-  if (!empty($_SESSION['username'])) {
-    header('Location: /');
-    exit;
-  }
-  $app->render('login');
 });
 
 $router->post('/login', function () {
@@ -29,18 +22,17 @@ $router->post('/login', function () {
   $password = $_POST['password'] ?? '';
 
   if ($username === '') {
-    echo '<div class="alert alert-danger text-center">Name is required.</div>';
+    echo '<div class="text-red-600 text-center">Name is required.</div>';
     return;
   }
 
   if ($password !== 'password') {
-    echo '<div class="alert alert-danger text-center">Incorrect password.</div>';
+    echo '<div class="text-red-600 text-center">Incorrect password.</div>';
     return;
   }
 
   $_SESSION['username'] = $username;
 
-  echo '<div class="alert alert-success text-center">Welcome, ' . htmlspecialchars($username) . '!</div>';
-  echo '<script>window.location.reload(true);</script>';
-  header('Location: /');
+  echo '<div id="login-success" class="text-green-600 text-center">Welcome, ' . htmlspecialchars($username) . '!</div>
+        <script>setTimeout(() => { $("#login-modal")[0].close(); $("#login-modal").remove(); }, 2000)</script>';
 });

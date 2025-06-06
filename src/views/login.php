@@ -1,51 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<dialog id="login-modal" class="rounded-md p-6 w-full max-w-md shadow-lg backdrop:bg-black/50">
+  <div id="error-box" class="mb-2 text-sm"></div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <form
+    hx-post="/login"
+    hx-target="#error-box"
+    hx-swap="innerHTML"
+    hx-indicator="#submit">
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input type="text" id="username" name="username" required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+    </div>
 
-  <title>Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-  <link href="css/style.css" rel="stylesheet">
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+      <input type="password" id="password" name="password" required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+    </div>
 
-  </style>
-</head>
-
-<body class="bg-light d-flex align-items-center justify-content-center vh-100">
-
-  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
-    <h3 class="text-center mb-3">Login</h3>
-
-    <div id="error-box"></div>
-
-    <form
-      hx-post="/login"
-      hx-target="#error-box"
-      hx-swap="innerHTML"
-      hx-indicator="#spinner"
-      hx-on::afterRequest="if (event.detail.xhr.status === 401 || event.detail.xhr.status === 400) document.querySelector('#error-box').innerHTML = event.detail.xhr.responseText">
-      <div class="mb-3">
-        <label for="username" class="form-label">Your Name</label>
-        <input type="text" class="form-control" id="username" name="username" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Shared Password</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-      </div>
-
-      <div class="d-flex justify-content-center mb-3">
-        <div id="spinner" class="spinner-border text-primary htmx-indicator" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">Login</button>
-    </form>
-  </div>
-
-</body>
-
-</html>
+    <button id="submit" type="submit"
+      class="w-full py-2 px-4 rounded bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <span id="submit-label">Login</span>
+      <div id="spinner" class="htmx-indicator animate-spin w-3 h-3 border-4 border-white-500 border-t-transparent rounded-full" role="status"></div>
+    </button>
+  </form>
+  <script>
+    $('#login-modal').on('cancel', e => e.preventDefault())[0].showModal();
+  </script>
+</dialog>
