@@ -1,4 +1,4 @@
-<dialog id="login-modal" class="rounded-md p-6 w-full max-w-md shadow-lg backdrop:bg-black/50">
+<dialog id="login-modal" class="rounded-md p-6 w-full max-w-md shadow-lg backdrop:bg-black/50 backdrop:backdrop-blur-xs">
   <div id="error-box" class="mb-2 text-sm"></div>
 
   <form

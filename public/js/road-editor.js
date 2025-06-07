@@ -1,9 +1,5 @@
 (() => {
   const svg = d3.select("#network");
-  const width = window.innerWidth;
-  const height = window.innerHeight - 40;
-
-  svg.attr("width", width).attr("height", height);
 
   const g = svg.append("g");
 
