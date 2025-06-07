@@ -1,5 +1,13 @@
 (() => {
   const svg = d3.select("#network");
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  svg.attr("width", width).attr("height", height);
+
+  window.addEventListener('resize', () => {
+    svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
+  });
+
 
   const g = svg.append("g");
 
