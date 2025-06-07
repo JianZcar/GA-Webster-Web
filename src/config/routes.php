@@ -18,9 +18,11 @@ $router->get('/', function () use ($app) {
 });
 
 $router->get('/login', function () use ($app) {
-  if (empty($_SESSION['username'])) {
+  if (empty($_SESSION['username']) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
     $app->render('login');
-    return;
+  } else {
+    http_response_code(403);
+    $app->render('forbidden');
   }
 });
 

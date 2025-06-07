@@ -12,7 +12,11 @@
       let modal = document.querySelector('#login-modal');
 
       if (!modal) {
-        const loginRes = await fetch('/login/');
+        const loginRes = await fetch('/login', {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
         const html = await loginRes.text();
         document.body.insertAdjacentHTML('beforeend', html);
         modal = document.querySelector('#login-modal');
