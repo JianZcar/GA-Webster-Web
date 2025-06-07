@@ -1,37 +1,48 @@
-(function authEnforcer() {
-  const checkSession = async () => {
+(async function authEnforcer() {
+  async function checkSession() {
     try {
       const res = await fetch('/logged');
-      const isLoggedIn = await res.json();
-
-      if (isLoggedIn) {
-        clearInterval(auth_interval);
-        return; // stop further execution if logged in
-      }
-
-      let modal = document.querySelector('#login-modal');
-
-      if (!modal) {
-        const loginRes = await fetch('/login', {
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        });
-        const html = await loginRes.text();
-        document.body.insertAdjacentHTML('beforeend', html);
-        modal = document.querySelector('#login-modal');
-
-        htmx.process(modal);
-      }
-
-      if (modal && typeof modal.showModal === 'function' && !modal.open) {
-        alert("You must login to access");
-        modal.showModal();
-      }
-    } catch (err) {
-      console.error('Error checking login status:', err);
+      return await res.json();
+    } catch (e) {
+      console.error('Error checking session:', e);
+      return false;
     }
-  };
+  }
 
-  const auth_interval = setInterval(checkSession, 500);
+  async function showLoginModal() {
+    let modal = document.querySelector('#login-modal');
+    if (!modal) {
+      const loginRes = await fetch('/login', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      const html = await loginRes.text();
+      document.body.insertAdjacentHTML('beforeend', html);
+      modal = document.querySelector('#login-modal');
+      if (window.htmx) htmx.process(modal);
+    }
+    if (typeof modal.showModal === 'function' && !modal.open) {
+      modal.showModal();
+    }
+    alert('You must login to access');
+  }
+
+  const observer = new MutationObserver(async (mutationsList) => {
+    for (const mutation of mutationsList) {
+      for (const removedNode of mutation.removedNodes) {
+        if (
+          removedNode.id === 'login-modal' ||
+          (removedNode.querySelector && removedNode.querySelector('#login-modal'))
+        ) {
+          const loggedIn = await checkSession();
+          if (!loggedIn) {
+            await showLoginModal();
+          } else {
+            observer.disconnect(); // user logged in, stop observing
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(document.body, { childList: true });
 })();
