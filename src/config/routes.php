@@ -17,6 +17,17 @@ $router->get('/', function () use ($app) {
   $app->render('road-edit');
 });
 
+$router->get('/login', function () use ($app) {
+  if (empty($_SESSION['username'])) {
+    $app->render('login');
+    return;
+  }
+});
+
+$router->get('/logged', function () {
+  echo json_encode(!empty($_SESSION['username']));
+});
+
 $router->post('/login', function () {
   $username = trim($_POST['username'] ?? '');
   $password = $_POST['password'] ?? '';
