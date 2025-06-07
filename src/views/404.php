@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 Not Found</title>
-  <link href="/css/tailwind.css" rel="stylesheet">
+
+  <?php include_once(__DIR__ . '/' . 'imports.php'); ?>
 </head>
 
 <body>
