@@ -8,18 +8,14 @@ use flight\net\Router;
  * @var Engine $app
  */
 
-$app->map('notFound', function () {
+$app->map('notFound', function () use ($app) {
   http_response_code(404);
-  Flight::render('404');
+  $app->render('404');
 });
 
 $router->get('/', function () use ($app) {
-  if (empty($_SESSION['username'])) {
-    $app->render('road-edit');
-    $app->render('login');
-    return;
-  }
   $app->render('road-edit');
+  empty($_SESSION['username']) && $app->render('login');
 });
 
 $router->get('/login', function () use ($app) {

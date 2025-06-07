@@ -35,7 +35,6 @@
   </div>
 
 </body>
-<script src="/js/auth-enforcer.js"></script>
 <script src="/js/road-editor.js"></script>
 
 </html>

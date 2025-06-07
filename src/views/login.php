@@ -24,7 +24,9 @@
       <div id="spinner" class="htmx-indicator animate-spin w-3 h-3 border-4 border-white-500 border-t-transparent rounded-full" role="status"></div>
     </button>
   </form>
+
   <script>
     $('#login-modal').on('cancel', e => e.preventDefault())[0].showModal();
   </script>
+  <script src="/js/auth-enforcer.js"></script>
 </dialog>
