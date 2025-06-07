@@ -11,6 +11,7 @@
 
   async function showLoginModal() {
     let modal = document.querySelector('#login-modal');
+
     if (!modal) {
       const loginRes = await fetch('/login', {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -20,12 +21,30 @@
       modal = document.querySelector('#login-modal');
       if (window.htmx) htmx.process(modal);
     }
+
+    // Add close listener once
+    if (!modal.dataset.listenerAttached) {
+      modal.addEventListener('close', async () => {
+        const stillLoggedIn = await checkSession();
+        if (!stillLoggedIn) {
+          await showLoginModal();
+        }
+      });
+      modal.dataset.listenerAttached = 'true'; // mark to avoid duplicate listeners
+    }
+
     if (typeof modal.showModal === 'function' && !modal.open) {
+      alert('You must login to access');
       modal.showModal();
     }
-    alert('You must login to access');
   }
 
+  const isLoggedIn = await checkSession();
+  if (!isLoggedIn) {
+    await showLoginModal();
+  }
+
+  // Fallback: observe if modal is removed entirely
   const observer = new MutationObserver(async (mutationsList) => {
     for (const mutation of mutationsList) {
       for (const removedNode of mutation.removedNodes) {
@@ -33,11 +52,11 @@
           removedNode.id === 'login-modal' ||
           (removedNode.querySelector && removedNode.querySelector('#login-modal'))
         ) {
-          const loggedIn = await checkSession();
-          if (!loggedIn) {
+          const stillLoggedIn = await checkSession();
+          if (!stillLoggedIn) {
             await showLoginModal();
           } else {
-            observer.disconnect(); // user logged in, stop observing
+            observer.disconnect();
           }
         }
       }
