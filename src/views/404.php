@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forbidden</title>
+  <title>404 Not Found</title>
   <link href="/css/tailwind.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="min-h-screen flex items-center justify-center">
-    <div class="bg-white max-w-sm w-full p-10 text-center">
-      <h1 class="text-5xl font-extrabold text-red-600 mb-6 tracking-wide">403 Forbidden</h1>
+    <div class="bg-white w-full p-10 text-center">
+      <h1 class="text-5xl font-extrabold text-red-600 mb-6 tracking-wide">404 Not Found</h1>
       <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-        You are not allowed to access this page directly.
+        The page you have requested could not be found.
       </p>
       <a href="/"
         class="inline-block px-8 py-3 bg-cyan-500 text-white rounded-lg font-semibold hover:bg-cyan-400 transition-shadow shadow-md hover:shadow-lg">

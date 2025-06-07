@@ -8,6 +8,11 @@ use flight\net\Router;
  * @var Engine $app
  */
 
+$app->map('notFound', function () {
+  http_response_code(404);
+  Flight::render('404');
+});
+
 $router->get('/', function () use ($app) {
   if (empty($_SESSION['username'])) {
     $app->render('road-edit');
@@ -22,7 +27,7 @@ $router->get('/login', function () use ($app) {
     $app->render('login');
   } else {
     http_response_code(403);
-    $app->render('forbidden');
+    $app->render('403');
   }
 });
 
