@@ -5,8 +5,9 @@
       const isLoggedIn = await res.json();
 
       if (isLoggedIn) {
-        clearInterval(intervalId);
-      }; // user is logged in
+        clearInterval(auth_interval);
+        return; // stop further execution if logged in
+      }
 
       let modal = document.querySelector('#login-modal');
 
@@ -28,5 +29,5 @@
     }
   };
 
-  setInterval(checkSession, 500);
+  const auth_interval = setInterval(checkSession, 500);
 })();
