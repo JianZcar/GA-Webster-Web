@@ -49,8 +49,10 @@
   }
 
   function updateInputs(node) {
+    document.getElementById("ID").value = node?.id ?? "";
     document.getElementById("nodeX").value = node?.x ?? "";
-    document.getElementById("nodeY").value = node?.y ?? "";
+    document.getElementById("nodeY").value = node?.y * -1 ?? "";
+    document.getElementById("nodeType").value = node?.type ?? "";
   }
 
   function edgeExists(source, target) {
@@ -66,9 +68,10 @@
   });
 
   // Zoom behavior
-  const zoom = d3.zoom().on("zoom", (event) => {
-    g.attr("transform", event.transform);
-  });
+  const zoom = d3.zoom().scaleExtent([0.8, 5])
+    .on("zoom", (event) => {
+      g.attr("transform", event.transform);
+    });
   svg.call(zoom).on("dblclick.zoom", null);
 
   // Center initial zoom and pan
@@ -259,7 +262,8 @@
     nodes.push({
       id: `n${++nodeCounter}`,
       x: mx,
-      y: my
+      y: my,
+      type: 'priority'
     });
     selectedNode = null;
     updateInputs(null);
@@ -292,7 +296,7 @@
   document.getElementById("updateNode").addEventListener("click", () => {
     if (selectedNode) {
       const x = parseFloat(document.getElementById("nodeX").value);
-      const y = parseFloat(document.getElementById("nodeY").value);
+      const y = parseFloat(document.getElementById("nodeY").value) * -1;
       if (!isNaN(x) && !isNaN(y)) {
         selectedNode.x = x;
         selectedNode.y = y;
