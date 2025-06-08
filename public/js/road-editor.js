@@ -11,15 +11,17 @@
 
   const g = svg.append("g");
 
-  // Grid setup
+  // Grid
   const gridSize = 20;
   const grid = g.append("g").attr("class", "grid");
-  for (let x = -2000; x <= 2000; x += gridSize) {
-    grid.append("line").attr("x1", x).attr("y1", -2000).attr("x2", x).attr("y2", 2000).attr("stroke", "#eee");
-  }
-  for (let y = -2000; y <= 2000; y += gridSize) {
-    grid.append("line").attr("x1", -2000).attr("y1", y).attr("x2", 2000).attr("y2", y).attr("stroke", "#eee");
-  }
+
+  d3.range(-2000, 2001, gridSize).forEach(pos => {
+    grid.append("line").attr("x1", pos).attr("y1", -2000)
+      .attr("x2", pos).attr("y2", 2000).attr("stroke", "#eee");
+    grid.append("line")
+      .attr("x1", -2000).attr("y1", pos)
+      .attr("x2", 2000).attr("y2", pos).attr("stroke", "#eee");
+  });
 
   // Arrow marker for edges
   const defs = g.append("defs");
@@ -40,6 +42,7 @@
   let nodeCounter = 0;
   let edgeCounter = 0;
   let selectedNode = null;
+  let selectedEdge = null;
   let fromNode = null;
 
   let rightHandTraffic = true;
@@ -48,11 +51,24 @@
     return nodes.find(n => n.id === id);
   }
 
-  function updateInputs(node) {
-    document.getElementById("ID").value = node?.id ?? "";
-    document.getElementById("nodeX").value = node?.x ?? "";
-    document.getElementById("nodeY").value = node?.y * -1 ?? "";
-    document.getElementById("nodeType").value = node?.type ?? "";
+  function updateInputs(element) {
+    document.getElementById("ID").value = element?.id ?? "";
+    document.getElementById("ID").dispatchEvent(new Event('input'));
+
+    document.getElementById("nodeX").value = element?.x ?? "";
+    document.getElementById("nodeX").dispatchEvent(new Event('input'));
+
+    document.getElementById("nodeY").value = element?.y * -1 ?? "";
+    document.getElementById("nodeY").dispatchEvent(new Event('input'));
+
+    document.getElementById("nodeType").value = element?.type ?? "";
+    document.getElementById("nodeType").dispatchEvent(new Event('change'));
+
+    document.getElementById("edgeFrom").value = element?.source ?? "";
+    document.getElementById("edgeFrom").dispatchEvent(new Event('input'));
+
+    document.getElementById("edgeTo").value = element?.target ?? "";
+    document.getElementById("edgeTo").dispatchEvent(new Event('input'));
   }
 
   function edgeExists(source, target) {
@@ -104,6 +120,13 @@
         enter => {
           const gEdge = enter.append("g")
             .attr("class", "edge")
+            .on("click", (event, d) => {
+              event.stopPropagation();
+              selectedEdge = d;
+              selectedNode = null;
+              updateInputs(d);
+              updateGraph();
+            })
             .on("contextmenu", (event, d) => {
               event.preventDefault();
               const idx = edges.indexOf(d);
@@ -147,7 +170,9 @@
         const s = getNode(d.source), t = getNode(d.target);
         const dx = t.x - s.x, dy = t.y - s.y, len = Math.hypot(dx, dy);
         return t.y + (dx / len) * d.offset;
-      });
+      })
+      .attr("stroke", d => d === selectedEdge ? "gold" : "#555")
+
 
     // Edge labels
     g.selectAll("text.edge-label")
@@ -182,6 +207,7 @@
                 d.x = event.x;
                 d.y = event.y;
                 selectedNode = d;
+                selectedEdge = null;
                 updateInputs(d);
                 updateGraph();
               }))
@@ -200,6 +226,7 @@
                 tempEdgeLine.attr("visibility", "hidden");
               }
               selectedNode = d;
+              selectedEdge = null;
               updateInputs(d);
               updateGraph();
             })
@@ -292,16 +319,39 @@
     }
   });
 
-  // Update node position from input fields
-  document.getElementById("updateNode").addEventListener("click", () => {
+  function renameNode(oldId, newId) {
+    const node = nodes.find(n => n.id === oldId);
+    if (!node) return;
+    node.id = newId;
+
+    edges.forEach(edge => {
+      if (edge.source === oldId) edge.source = newId;
+      if (edge.target === oldId) edge.target = newId;
+    });
+
+    updateGraph();
+  }
+
+
+  document.getElementById("updateElement").addEventListener("click", () => {
     if (selectedNode) {
+      const id = document.getElementById("ID").value;
       const x = parseFloat(document.getElementById("nodeX").value);
-      const y = parseFloat(document.getElementById("nodeY").value) * -1;
-      if (!isNaN(x) && !isNaN(y)) {
-        selectedNode.x = x;
-        selectedNode.y = y;
-        updateGraph();
-      }
+      const y = -parseFloat(document.getElementById("nodeY").value); // inverted for UI consistency
+      const type = document.getElementById("nodeType").value;
+
+      renameNode(selectedNode.id, id);
+      selectedNode.x = x;
+      selectedNode.y = y;
+      selectedNode.type = type;
+
+      updateGraph();
+    } else if (selectedEdge) {
+      const id = document.getElementById("ID").value;
+
+      selectedEdge.id = id;
+
+      updateGraph();
     }
   });
 
@@ -310,4 +360,3 @@
 
   updateGraph();
 })();
-
