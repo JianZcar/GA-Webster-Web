@@ -36,6 +36,10 @@ $router->get('/logged', function () {
   echo json_encode(!empty($_SESSION['username']));
 });
 
+$router->get('/wasm', function () use ($app) {
+  $app->render('test-wasm');
+});
+
 $router->post('/login', function () {
   $username = trim($_POST['username'] ?? '');
   $password = $_POST['password'] ?? '';

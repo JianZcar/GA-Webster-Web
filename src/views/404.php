@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 Not Found</title>
 
-  <?php include_once(__DIR__ . '/' . 'imports.php'); ?>
+  <?php include_once(__DIR__ . '/' . '../includes/imports.php'); ?>
 </head>
 
 <body>
