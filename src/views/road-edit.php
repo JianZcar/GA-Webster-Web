@@ -13,9 +13,10 @@
   <svg id="network" class="absolute top-0 left-0"></svg>
 
   <div id="header" class="fixed top-4 left-4 rounded-md w-48 flex items-center p-2 backdrop-blur-sm shadow-sm" x-data="{ data: true }">
-    <div id="properties" class="w-full flex flex-col gap-4 items-center"
+    <form id="properties" class="w-full flex flex-col gap-4 items-center"
       x-data="{oID: '', oNodeX: '', oNodeY: '', oNodeType: '', hasFrom: false, hasTo: false,
-              idValue: '', xValue: '', yValue: '', typeValue: ''}">
+              idValue: '', xValue: '', yValue: '', typeValue: '', fromValue: '', toValue: ''}"
+      onsubmit="event.preventDefault(); updateElementHandler();">
 
       <div class="flex items-center" x-show="oID !== ''">
         <span class="text-sm mr-2">ID</span>
@@ -24,12 +25,12 @@
 
       <div class="flex items-center" x-show="oNodeX !== ''">
         <span class="text-sm mr-2">X</span>
-        <input type="number" id="nodeX" class="w-24 py-1 px-2 text-sm rounded-md" x-model="xValue" />
+        <input type="number" step="any" id="nodeX" class="w-24 py-1 px-2 text-sm rounded-md" x-model="xValue" />
       </div>
 
       <div class="flex items-center" x-show="oNodeY !== ''">
         <span class="text-sm mr-2">Y</span>
-        <input type="number" id="nodeY" class="w-24 py-1 px-2 text-sm rounded-md" x-model="yValue" />
+        <input type="number" step="any" id="nodeY" class="w-24 py-1 px-2 text-sm rounded-md" x-model="yValue" />
       </div>
 
       <div class="flex items-center" x-show="oNodeType !== ''">
@@ -47,18 +48,18 @@
 
       <div class="flex items-center" x-show="hasFrom">
         <span class="text-sm mr-2">From</span>
-        <input type="text" id="edgeFrom" class="w-24 py-1 px-2 text-sm rounded-md" disabled />
+        <input type="text" id="edgeFrom" class="w-24 py-1 px-2 text-sm rounded-md" x-model="fromValue" disabled />
       </div>
 
       <div class="flex items-center" x-show="hasTo">
         <span class="text-sm mr-2">To</span>
-        <input type="text" id="edgeTo" class="w-24 py-1 px-2 text-sm rounded-md" disabled />
+        <input type="text" id="edgeTo" class="w-24 py-1 px-2 text-sm rounded-md" x-model="toValue" disabled />
       </div>
 
       <button id="updateElement" class="btn btn-sm btn-primary me-2 px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
-        x-show="(idValue !== oID && idValue !== '') || (xValue !== oNodeX && xValue !== '') || (yValue !== oNodeY && yValue !== '') || typeValue !== oNodeType">Update</button>
+        x-show="(idValue !== oID && idValue !== '') || (xValue * 1 !== oNodeX * 1 && xValue * 1 !== '') || (yValue * 1 !== oNodeY * 1 && yValue !== '') || typeValue !== oNodeType">Update</button>
       <button id="toggleTraffic" class="btn btn-sm btn-secondary px-3 py-1 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">Traffic: Right-Hand</button>
-    </div>
+    </form>
   </div>
 
 </body>

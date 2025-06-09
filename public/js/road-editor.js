@@ -56,15 +56,17 @@
 
     properties.oID = element?.id ?? "";
     properties.oNodeX = element?.x ?? "";
-    properties.oNodeY = element?.y ?? "";
+    properties.oNodeY = element?.y != null ? -element.y : "";
     properties.oNodeType = element?.type ?? "";
     properties.hasFrom = element?.source != null;
     properties.hasTo = element?.target != null;
 
     properties.idValue = element?.id ?? "";
     properties.xValue = element?.x ?? "";
-    properties.yValue = element?.y ?? "";
+    properties.yValue = element?.y != null ? -element.y : "";
     properties.typeValue = element?.type ?? "";
+    properties.fromValue = element?.source ?? "";
+    properties.toValue = element?.target ?? "";
   }
 
   function edgeExists(source, target) {
@@ -329,28 +331,38 @@
   }
 
 
-  document.getElementById("updateElement").addEventListener("click", () => {
+  window.updateElementHandler = function() {
+    const properties = document.getElementById("properties")._x_dataStack[0];
+
     if (selectedNode) {
       const id = document.getElementById("ID").value;
       const x = parseFloat(document.getElementById("nodeX").value);
-      const y = -parseFloat(document.getElementById("nodeY").value); // inverted for UI consistency
+      const y = parseFloat(document.getElementById("nodeY").value); // inverted for UI consistency
       const type = document.getElementById("nodeType").value;
 
       renameNode(selectedNode.id, id);
       selectedNode.x = x;
-      selectedNode.y = y;
+      selectedNode.y = -y;
       selectedNode.type = type;
 
-      updateGraph();
+      properties.oID = id ?? "";
+      properties.oNodeX = x ?? "";
+      properties.oNodeY = y ?? "";
+      properties.oNodeType = type ?? "";
+
+      properties.idValue = id ?? "";
+      properties.xValue = x ?? "";
+      properties.yValue = y ?? "";
+      properties.typeValue = type ?? "";
     } else if (selectedEdge) {
       const id = document.getElementById("ID").value;
-
       selectedEdge.id = id;
 
-      updateGraph();
+      properties.oID = id ?? "";
+      properties.idValue = id ?? "";
     }
-  });
-
+    updateGraph();
+  }
   // Initialize toggle traffic button text
   document.getElementById("toggleTraffic").textContent = `Traffic: Right-Hand`;
 
