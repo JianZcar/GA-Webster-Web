@@ -52,23 +52,19 @@
   }
 
   function updateInputs(element) {
-    document.getElementById("ID").value = element?.id ?? "";
-    document.getElementById("ID").dispatchEvent(new Event('input'));
+    const properties = document.getElementById("properties")._x_dataStack[0];
 
-    document.getElementById("nodeX").value = element?.x ?? "";
-    document.getElementById("nodeX").dispatchEvent(new Event('input'));
+    properties.oID = element?.id ?? "";
+    properties.oNodeX = element?.x ?? "";
+    properties.oNodeY = element?.y ?? "";
+    properties.oNodeType = element?.type ?? "";
+    properties.hasFrom = element?.source != null;
+    properties.hasTo = element?.target != null;
 
-    document.getElementById("nodeY").value = element?.y * -1 ?? "";
-    document.getElementById("nodeY").dispatchEvent(new Event('input'));
-
-    document.getElementById("nodeType").value = element?.type ?? "";
-    document.getElementById("nodeType").dispatchEvent(new Event('change'));
-
-    document.getElementById("edgeFrom").value = element?.source ?? "";
-    document.getElementById("edgeFrom").dispatchEvent(new Event('input'));
-
-    document.getElementById("edgeTo").value = element?.target ?? "";
-    document.getElementById("edgeTo").dispatchEvent(new Event('input'));
+    properties.idValue = element?.id ?? "";
+    properties.xValue = element?.x ?? "";
+    properties.yValue = element?.y ?? "";
+    properties.typeValue = element?.type ?? "";
   }
 
   function edgeExists(source, target) {
