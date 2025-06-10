@@ -7,6 +7,7 @@
   <title>SUMO Road Layout Editor</title>
 
   <?php include_once(__DIR__ . '/' . '../includes/imports.php'); ?>
+  <script src="https://cdn.jsdelivr.net/npm/d3/dist/d3.min.js"></script>
 </head>
 
 <body>
@@ -63,6 +64,6 @@
   </div>
 
 </body>
-<script src="/js/road-editor.js"></script>
+<?php esbuild("road-editor", 'ts', true); ?>
 
 </html>

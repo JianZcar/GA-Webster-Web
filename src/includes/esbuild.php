@@ -28,29 +28,29 @@
     }
   })();
 
-  window.run = async function(tsCode) {
+  window.run = async function(code, loader, minify) {
     await esbuildReady;
-    const result = await esbuild.transform(tsCode, {
-      loader: "ts",
-      minify: true,
+    const result = await esbuild.transform(code, {
+      loader: loader,
+      minify: minify,
     });
     new Function(result.code)();
   }
 </script>
 
 <?php
-function ts_transpile(string $ts): void
+function esbuild(string $name, string $loader, bool $minify): void
 {
-  $path = __DIR__ .  '/' . '../ts/' . $ts . '.ts';
+  $path = __DIR__ .  '/' . '../' . $loader . '/' . $name . '.' . $loader;
   if (!file_exists($path)) {
-    throw new Exception("TypeScript file not found: $ts");
+    throw new Exception("File not found: $name");
   }
 
-  $tsCode = file_get_contents($path);
+  $code = file_get_contents($path);
 ?>
-  <script>
+  <script defer>
     window.addEventListener("load", () => {
-      typeof window.run === "function" ? window.run(<?php echo json_encode($tsCode); ?>) : console.error("window.run is not defined when trying to run the TS code")
+      typeof window.run === "function" ? window.run(<?php echo json_encode($code); ?>, <?php echo json_encode($loader); ?>, <?php echo json_encode($minify); ?>) : console.error("window.run is not defined when trying to run the <?php echo $loader ?> code")
     });
   </script>
 <?php
