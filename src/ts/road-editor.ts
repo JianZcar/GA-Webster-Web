@@ -342,6 +342,14 @@ interface HTMLElement {
       updateGraph();
       return;
     }
+    if (selectedNode || selectedEdge) {
+      selectedNode = null;
+      selectedEdge = null;
+
+      updateInputs(null);
+      updateGraph();
+      return;
+    }
 
     const [mx, my] = d3.pointer(event, g.node() as any);
     nodes.push({
