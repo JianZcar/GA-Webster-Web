@@ -16,10 +16,6 @@
       <p class="text-gray-600 mb-8 text-lg leading-relaxed">
         The page you have requested could not be found.
       </p>
-      <a href="/"
-        class="inline-block px-8 py-3 bg-cyan-500 text-white rounded-lg font-semibold hover:bg-cyan-400 transition-shadow shadow-md hover:shadow-lg">
-        Go to Homepage
-      </a>
     </div>
   </div>
 </body>
