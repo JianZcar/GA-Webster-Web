@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SUMO Road Layout Editor</title>
-
   <?php include_once(__DIR__ . '/' . '../includes/imports.php'); ?>
   <script src="https://cdn.jsdelivr.net/npm/d3/dist/d3.min.js"></script>
 </head>
 
-<body>
+<body class="min-h-full min-w-full">
   <svg id="network" class="absolute top-0 left-0"></svg>
 
   <div id="header" class="fixed top-4 left-4 rounded-md w-48 flex items-center p-2 backdrop-blur-sm shadow-sm" x-data="{ data: true }">
