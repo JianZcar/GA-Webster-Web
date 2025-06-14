@@ -29,7 +29,7 @@
 
         setTimeout(() => {
           this.current = tab;
-        }, 100); 
+        }, 70); 
 
         setTimeout(() => this.switching = false, 600);
       }
@@ -39,13 +39,13 @@
     <!-- Tabs -->
     <div class="flex px-4 pt-4 gap-4 text-sm">
       <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
+        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
         :class="{ 'font-bold border-b-2 border-black': current === 'roadedit' }"
         @click="setTab('roadedit')">
         Road Editor
       </button>
       <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
+        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
         :class="{ 'font-bold border-b-2 border-black': current === 'about' }"
         @click="setTab('about')">
         About
@@ -60,7 +60,7 @@
         class="h-full w-full rounded-lg transition-opacity duration-100"
         :class="{ 'border-2 border-slate-500/50 shadow-md': current === 'roadedit' }"
         :style="`opacity: ${opacity / 100}`"
-        @load="setTimeout(() => opacity = 100, 10); syncTab()"></iframe>
+        @load="() => opacity = 100; syncTab()"></iframe>
     </div>
 
   </div>
