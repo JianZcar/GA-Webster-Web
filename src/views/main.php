@@ -13,6 +13,7 @@
     x-data="{
       current: 'roadedit',
       opacity: 100,
+      switching: false,
       syncTab() {
         try {
           const p = $refs.iframe?.contentWindow?.location?.pathname?.split('/')?.[1] || 'roadedit';
@@ -22,9 +23,15 @@
         } catch (_) {}
       },
       setTab(tab) {
-        if (tab === this.current) return;
+        if (this.switching || tab === this.current) return;
+        this.switching = true;
         this.opacity = 0;
-        setTimeout(() => this.current = tab, 300);
+
+        setTimeout(() => {
+          this.current = tab;
+        }, 100); 
+
+        setTimeout(() => this.switching = false, 600); // debounce time
       }
     }"
     class="h-full flex flex-col">
