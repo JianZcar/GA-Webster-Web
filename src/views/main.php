@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>main</title>
+  <title>GAxWebster</title>
   <?php include_once(__DIR__ . '/../includes/imports.php'); ?>
 </head>
 
@@ -20,9 +20,9 @@
         Road Editor
       </button>
       <button class="px-4 py-2 rounded-lg hover:bg-gray-300"
-        :class="{ 'font-bold border-b-2 border-black': current === 'aboutus' }"
-        @click="current = 'aboutus'">
-        About Us
+        :class="{ 'font-bold border-b-2 border-black': current === 'about' }"
+        @click="current = 'about'">
+        About
       </button>
     </div>
 

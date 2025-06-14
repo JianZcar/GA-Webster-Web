@@ -28,6 +28,18 @@ $router->get('/roadedit', function () use ($app) {
   }
 });
 
+$router->get('/about', function () use ($app) {
+  $h = getallheaders();
+  if (($h['Sec-Fetch-Dest'] ?? '') === 'iframe') {
+    $app->render('about');
+  } else {
+    http_response_code(403);
+    $app->render('403');
+  }
+});
+
+
+
 $router->get('/edit', function () use ($app) {
   $app->render('xml-editor');
 });
