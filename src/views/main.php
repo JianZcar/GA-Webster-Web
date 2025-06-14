@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-full">
 
 <head>
@@ -13,32 +13,28 @@
     class="h-full flex flex-col">
 
     <!-- Tabs -->
-    <div class="flex bg-gray-200 text-sm">
-      <button class="px-4 py-2 hover:bg-gray-300"
+    <div class="flex px-4 pt-4 gap-4 text-sm">
+      <button class="px-4 py-2 rounded-lg hover:bg-gray-300"
         :class="{ 'font-bold border-b-2 border-black': current === 'roadedit' }"
         @click="current = 'roadedit'">
-        road edit
+        Road Editor
       </button>
-      <button class="px-4 py-2 hover:bg-gray-300"
-        :class="{ 'font-bold border-b-2 border-black': current === 'settings' }"
-        @click="current = 'settings'">
-        settings
-      </button>
-      <button class="px-4 py-2 hover:bg-gray-300"
-        :class="{ 'font-bold border-b-2 border-black': current === 'help' }"
-        @click="current = 'help'">
-        help
+      <button class="px-4 py-2 rounded-lg hover:bg-gray-300"
+        :class="{ 'font-bold border-b-2 border-black': current === 'aboutus' }"
+        @click="current = 'aboutus'">
+        About Us
       </button>
     </div>
 
     <!-- Iframe -->
-    <iframe
-      x-ref="iframe"
-      :src="`/${current}`"
-      class="h-full w-full border-none"
-      style="border: none;"
-      @load="syncTab()">
-    </iframe>
+    <div class="h-full w-full p-4">
+      <iframe
+        x-ref="iframe"
+        :src="`/${current}`"
+        class="h-full w-full rounded-lg border-2 border-slate-500/50 shadow-md"
+        @load="syncTab()">
+      </iframe>
+    </div>
   </div>
 </body>
 
