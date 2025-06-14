@@ -28,14 +28,32 @@
     }
   })();
 
-  window.run = async function(code, loader, minify) {
+  window.run = async (name, code, loader, minify) => {
     await esbuildReady;
-    const result = await esbuild.transform(code, {
-      loader: loader,
-      minify: minify,
+    const cache = await caches.open("js-cache");
+    const [oKey, tKey] = [`${name}-orig`, `${name}-transformed`];
+
+    const [oResp, tResp] = await Promise.all([cache.match(oKey), cache.match(tKey)]);
+    const [oCode, tCode] = await Promise.all([
+      oResp?.text() ?? null,
+      tResp?.text() ?? null,
+    ]);
+
+    if (oCode === code && tCode) return new Function(tCode)();
+
+    const {
+      code: tNew
+    } = await esbuild.transform(code, {
+      loader,
+      minify
     });
-    new Function(result.code)();
-  }
+    await Promise.all([
+      cache.put(oKey, new Response(code)),
+      cache.put(tKey, new Response(tNew)),
+    ]);
+
+    new Function(tNew)();
+  };
 </script>
 
 <?php
@@ -50,7 +68,7 @@ function esbuild(string $name, string $loader, bool $minify): void
 ?>
   <script defer>
     window.addEventListener("load", () => {
-      typeof window.run === "function" ? window.run(<?php echo json_encode($code); ?>, <?php echo json_encode($loader); ?>, <?php echo json_encode($minify); ?>) : console.error("window.run is not defined when trying to run the <?php echo $loader ?> code")
+      typeof window.run === "function" ? window.run(<?php echo json_encode($name); ?>, <?php echo json_encode($code); ?>, <?php echo json_encode($loader); ?>, <?php echo json_encode($minify); ?>) : console.error("window.run is not defined when trying to run the <?php echo $loader ?> code")
     });
   </script>
 <?php
