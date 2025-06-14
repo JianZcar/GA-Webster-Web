@@ -27,12 +27,14 @@
     </div>
 
     <!-- Iframe -->
-    <div class="h-full w-full p-4">
+    <div class="h-full w-full"
+      :class="{ 'p-4': current === 'roadedit' }">
       <iframe
         x-ref="iframe"
         :src="`/${current}`"
-        class="h-full w-full rounded-lg border-2 border-slate-500/50 shadow-md"
-        @load="syncTab()">
+        class="h-full w-full rounded-lg"
+        :class="{ 'border-2 border-slate-500/50 shadow-md': current === 'roadedit' }"
+        @load=" syncTab()">
       </iframe>
     </div>
   </div>
