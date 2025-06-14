@@ -4,27 +4,27 @@
   const esbuildReady = (async () => {
     const cacheName = "esbuild-wasm";
     const wasmURL = "https://cdn.jsdelivr.net/npm/esbuild-wasm/esbuild.wasm";
+
     try {
       const cache = await caches.open(cacheName);
       let response = await cache.match(wasmURL);
 
       if (!response) {
-        console.log("Fetching esbuild.wasm from network");
-        response = await fetch(wasmURL);
-        await cache.put(wasmURL, response.clone());
-        console.log("Cached esbuild.wasm locally.");
+        console.log("Fetching and caching esbuild.wasm...");
+        const fetched = await fetch(wasmURL);
+        await cache.put(wasmURL, fetched.clone());
+        response = fetched;
       } else {
         console.log("Using cached esbuild.wasm.");
       }
-      const wasmArrayBuffer = await response.arrayBuffer();
-      await esbuild.initialize({
-        wasmModule: await WebAssembly.compile(wasmArrayBuffer),
-      });
 
+      const wasmModule = await WebAssembly.compileStreaming(response);
+      await esbuild.initialize({
+        wasmModule
+      });
       console.log("esbuild initialized.");
-    } catch (e) {
-      console.log("Failed to load esbuild.wasm.");
-      console.error(e);
+    } catch (err) {
+      console.error("Failed to load esbuild.wasm.", err);
     }
   })();
 
