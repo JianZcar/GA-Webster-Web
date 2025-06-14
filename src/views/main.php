@@ -31,7 +31,7 @@
           this.current = tab;
         }, 100); 
 
-        setTimeout(() => this.switching = false, 600); // debounce time
+        setTimeout(() => this.switching = false, 600);
       }
     }"
     class="h-full flex flex-col">
@@ -39,13 +39,13 @@
     <!-- Tabs -->
     <div class="flex px-4 pt-4 gap-4 text-sm">
       <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300"
+        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
         :class="{ 'font-bold border-b-2 border-black': current === 'roadedit' }"
         @click="setTab('roadedit')">
         Road Editor
       </button>
       <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300"
+        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
         :class="{ 'font-bold border-b-2 border-black': current === 'about' }"
         @click="setTab('about')">
         About
