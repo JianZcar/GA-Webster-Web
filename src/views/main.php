@@ -29,9 +29,9 @@
 
         setTimeout(() => {
           this.current = tab;
-        }, 70); 
+        }, 60); 
 
-        setTimeout(() => this.switching = false, 600);
+        setTimeout(() => this.switching = false, 100);
       }
     }"
     class="h-full flex flex-col">
@@ -57,7 +57,7 @@
       <iframe
         x-ref="iframe"
         :src="`/${current}`"
-        class="h-full w-full rounded-lg transition-opacity duration-100"
+        class="h-full w-full rounded-lg transition-opacity duration-70"
         :class="{ 'border-2 border-slate-500/50 shadow-md': current === 'roadedit' }"
         :style="`opacity: ${opacity / 100}`"
         @load="() => opacity = 100; syncTab()"></iframe>

@@ -1,10 +1,8 @@
 <script type="module">
   import * as esbuild from "https://cdn.jsdelivr.net/npm/esbuild-wasm/esm/browser.js";
-
   const esbuildReady = (async () => {
     const cacheName = "esbuild-wasm";
     const wasmURL = "https://cdn.jsdelivr.net/npm/esbuild-wasm/esbuild.wasm";
-
     try {
       const cache = await caches.open(cacheName);
       let response = await cache.match(wasmURL);
@@ -17,7 +15,6 @@
       } else {
         console.log("Using cached esbuild.wasm.");
       }
-
       const wasmModule = await WebAssembly.compileStreaming(response);
       await esbuild.initialize({
         wasmModule
@@ -29,7 +26,6 @@
   })();
 
   window.run = async (name, code, loader, minify) => {
-    await esbuildReady;
     const cache = await caches.open("js-cache");
     const [oKey, tKey] = [`${name}-orig`, `${name}-transformed`];
 
@@ -40,7 +36,7 @@
     ]);
 
     if (oCode === code && tCode) return new Function(tCode)();
-
+    await esbuildReady;
     const {
       code: tNew
     } = await esbuild.transform(code, {
