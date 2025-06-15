@@ -38,7 +38,7 @@
 
     <!-- HTMX content container -->
     <div id="content"
-      class="h-full w-full"
+      class="flex-1 w-full"
       hx-get="/roadedit"
       hx-trigger="load"
       hx-target="this"

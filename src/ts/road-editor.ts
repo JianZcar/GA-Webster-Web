@@ -9,7 +9,7 @@ interface HTMLElement {
   let height = 0;
 
 
-  function getParentDimension(): { width: number; height: number } | null {
+  function getParentDimensions(): { width: number; height: number } | null {
     const svgEl = document.getElementById("network");
 
     if (!svgEl || !svgEl.parentElement) {
@@ -22,18 +22,18 @@ interface HTMLElement {
   }
 
   function resizeSvg() {
-    const dims = getParentDimension();
+    const dims = getParentDimensions();
     if (!dims) return;
 
-    width = dims.width;
-    height = dims.height;
+    const { width: w, height: h } = dims;
 
-    svg
-      .attr("width", width)
-      .attr("height", height)
-      .attr("viewBox", `0 0 ${width} ${height}`);
+    // Only update if changed
+    if (w !== width || h !== height) {
+      width = w;
+      height = h;
+      svg.attr("width", width).attr("height", height);
+    }
   }
-
   resizeSvg()
 
   window.addEventListener('resize', () => {
