@@ -15,7 +15,7 @@ $app->map('notFound', function () use ($app) {
 
 $router->get('/', function () use ($app) {
   $app->render('main');
-  empty($_SESSION['username']) && $app->render('login');
+  /* empty($_SESSION['username']) && $app->render('login'); */
 });
 
 $router->get('/roadedit', function () use ($app) {
