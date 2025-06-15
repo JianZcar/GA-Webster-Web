@@ -39,9 +39,7 @@
     <!-- HTMX content container -->
     <div id="content"
       class="flex-1 w-full opacity-0 transition-opacity duration-500"
-      x-init="document.addEventListener('htmx:afterSwap', () => {
-                $el.classList.add('opacity-100');
-              });"
+      hx-on::after-request="this.classList.add('opacity-100'); this.classList.remove('opacity-0')"
       hx-get="/roadedit"
       hx-trigger="load"
       hx-target="this"
