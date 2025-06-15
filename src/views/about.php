@@ -16,7 +16,7 @@
           x-bind:class="loaded ? 'opacity-100' : 'opacity-0'"
           src="https://github.com/JovTim.png"
           alt="Jovan"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 hover:scale-125" />
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-500 hover:scale-125" />
       </div>
       <p class="mt-4 font-medium">Jovan Timosa</p>
     </a>
@@ -29,7 +29,7 @@
           x-bind:class="loaded ? 'opacity-100' : 'opacity-0'"
           src="https://github.com/JianZcar.png"
           alt="Jian"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 hover:scale-125" />
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-500 hover:scale-125" />
       </div>
       <p class="mt-4 font-medium">Jian Zcar Esteban</p>
     </a>
@@ -42,7 +42,7 @@
           x-bind:class="loaded ? 'opacity-100' : 'opacity-0'"
           src="https://github.com/uzzielkyle.png"
           alt="Uzziel"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 hover:scale-125" />
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-500 hover:scale-125" />
       </div>
       <p class="mt-4 font-medium">Uzziel Kyle Ynciong</p>
     </a>
@@ -55,7 +55,7 @@
           x-bind:class="loaded ? 'opacity-100' : 'opacity-0'"
           src="https://github.com/Carl2121.png"
           alt="Carlos"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 hover:scale-125" />
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-500 hover:scale-125" />
       </div>
       <p class="mt-4 font-medium">Carlos Heredero</p>
     </a>
