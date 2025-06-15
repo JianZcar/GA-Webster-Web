@@ -1,7 +1,20 @@
 <!-- Hero -->
-<section class="text-center py-16 bg-white shadow-md">
-  <h1 class="text-4xl font-bold mb-4">We are Bether Team</h1>
-  <p class="text-lg text-gray-600">This is part of our thesis research.</p>
+<section class="text-center py-20 px-6 bg-white shadow-md">
+  <div class="max-w-4xl mx-auto space-y-8">
+    <h1 class="text-5xl font-extrabold text-gray-900">We are Bether</h1>
+
+    <p class="text-lg text-gray-700 leading-relaxed">
+      This web application is part of our thesis research focused on enhancing <strong>Genetic Algorithms (GA)</strong> for traffic light signal optimization by integrating the <strong>Initial Webster’s Method</strong> during population seeding.
+    </p>
+
+    <p class="text-lg text-gray-700 leading-relaxed">
+      Our goal is to demonstrate that using our proposed method can lead to better and more efficient solutions in traffic signal timing. The platform supports this workflow with a <strong>visual road editor</strong>, <strong>custom XML editing</strong>, and tools for <strong>importing/exporting</strong> network data.
+    </p>
+
+    <p class="text-lg text-gray-700 leading-relaxed">
+      Simulations are run using <strong>SUMO</strong> (Simulation of Urban Mobility), triggered via <strong>GitHub Actions</strong> or similar CI/CD runners, providing automated performance evaluation and results tracking.
+    </p>
+  </div>
 </section>
 
 <!-- Team Section -->
