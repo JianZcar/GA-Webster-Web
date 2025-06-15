@@ -1,5 +1,5 @@
 <!-- Hero -->
-<section class="text-center py-16 bg-white shadow">
+<section class="text-center py-16 bg-white shadow-md">
   <h1 class="text-4xl font-bold mb-4">We are Bether Team</h1>
   <p class="text-lg text-gray-600">This is part of our thesis research.</p>
 </section>
