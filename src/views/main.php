@@ -5,62 +5,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GAxWebster</title>
-  <?php include_once(__DIR__ . '/../includes/imports.php'); ?>
+  <?php require_once(__DIR__ . '/../includes/imports.php'); ?>
 </head>
 
 <body class="h-full m-0 p-0">
-  <div
-    x-data="{
-      current: 'roadedit',
-      opacity: 100,
-      switching: false,
-      syncTab() {
-        try {
-          const p = $refs.iframe?.contentWindow?.location?.pathname?.split('/')?.[1] || 'roadedit';
-          if (p && p !== this.current) {
-            this.current = p;
-          }
-        } catch (_) {}
-      },
-      setTab(tab) {
-        if (this.switching || tab === this.current) return;
-        this.switching = true;
-        this.opacity = 0;
-
-        setTimeout(() => {
-          this.current = tab;
-        }, 60); 
-
-        setTimeout(() => this.switching = false, 100);
-      }
-    }"
-    class="h-full flex flex-col">
+  <div x-data="{ current: 'roadedit' }" class="h-full flex flex-col">
 
     <!-- Tabs -->
-    <div class="flex px-4 pt-4 gap-4 text-sm">
+    <div class="flex h-16 px-4 pt-4 gap-4 text-sm">
       <button
         class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
         :class="{ 'font-bold border-b-2 border-black': current === 'roadedit' }"
-        @click="setTab('roadedit')">
+        :disabled="current === 'roadedit'"
+        @click="current = 'roadedit'"
+        hx-get="/roadedit"
+        hx-target="#content"
+        hx-swap="innerHTML">
         Road Editor
       </button>
       <button
         class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
         :class="{ 'font-bold border-b-2 border-black': current === 'about' }"
-        @click="setTab('about')">
+        :disabled="current === 'about'"
+        @click="current = 'about'"
+        hx-get="/about"
+        hx-target="#content"
+        hx-swap="innerHTML">
         About
       </button>
     </div>
 
-    <!-- Iframe -->
-    <div class="h-full w-full" :class="{ 'p-4': current === 'roadedit' }">
-      <iframe
-        x-ref="iframe"
-        :src="`/${current}`"
-        class="h-full w-full rounded-lg transition-opacity duration-70"
-        :class="{ 'border-2 border-slate-500/50 shadow-md': current === 'roadedit' }"
-        :style="`opacity: ${opacity / 100}`"
-        @load="() => opacity = 100; syncTab()"></iframe>
+    <!-- HTMX content container -->
+    <div id="content"
+      class="h-full w-full"
+      hx-get="/roadedit"
+      hx-trigger="load"
+      hx-target="this"
+      hx-swap="innerHTML">
     </div>
 
   </div>

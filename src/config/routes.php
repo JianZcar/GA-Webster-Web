@@ -19,26 +19,12 @@ $router->get('/', function () use ($app) {
 });
 
 $router->get('/roadedit', function () use ($app) {
-  $h = getallheaders();
-  if (($h['Sec-Fetch-Dest'] ?? '') === 'iframe') {
-    $app->render('road-edit');
-  } else {
-    http_response_code(403);
-    $app->render('403');
-  }
+  echo $app->view()->fetch('road-edit');
 });
 
 $router->get('/about', function () use ($app) {
-  $h = getallheaders();
-  if (($h['Sec-Fetch-Dest'] ?? '') === 'iframe') {
-    $app->render('about');
-  } else {
-    http_response_code(403);
-    $app->render('403');
-  }
+  echo $app->view()->fetch('about');
 });
-
-
 
 $router->get('/edit', function () use ($app) {
   $app->render('xml-editor');

@@ -4,12 +4,40 @@ interface HTMLElement {
 
 (() => {
   const svg = d3.select<SVGSVGElement, unknown>("#network");
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  svg.attr("width", width).attr("height", height);
+
+  let width = 0;
+  let height = 0;
+
+
+  function getParentDimension(): { width: number; height: number } | null {
+    const svgEl = document.getElementById("network");
+
+    if (!svgEl || !svgEl.parentElement) {
+      console.error("SVG or its parent not found");
+      return null;
+    }
+
+    const { width, height } = svgEl.parentElement.getBoundingClientRect();
+    return { width, height };
+  }
+
+  function resizeSvg() {
+    const dims = getParentDimension();
+    if (!dims) return;
+
+    width = dims.width;
+    height = dims.height;
+
+    svg
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`);
+  }
+
+  resizeSvg()
 
   window.addEventListener('resize', () => {
-    svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
+    resizeSvg()
   });
 
   const g = svg.append<SVGGElement>("g");
