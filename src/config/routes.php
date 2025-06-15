@@ -8,6 +8,15 @@ use flight\net\Router;
  * @var Engine $app
  */
 
+function require_htmx($app)
+{
+  if (!isset($_SERVER['HTTP_HX_REQUEST']) || $_SERVER['HTTP_HX_REQUEST'] !== 'true') {
+    http_response_code(403);
+    $app->render('403');
+    exit;
+  }
+}
+
 $app->map('notFound', function () use ($app) {
   http_response_code(404);
   $app->render('404');
@@ -19,10 +28,12 @@ $router->get('/', function () use ($app) {
 });
 
 $router->get('/roadedit', function () use ($app) {
+  require_htmx($app);
   echo $app->view()->fetch('road-edit');
 });
 
 $router->get('/about', function () use ($app) {
+  require_htmx($app);
   echo $app->view()->fetch('about');
 });
 
