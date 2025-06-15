@@ -12,7 +12,7 @@
     </p>
 
     <p class="text-lg text-gray-700 leading-relaxed">
-      Simulations are run using <strong>SUMO</strong> (Simulation of Urban Mobility), triggered via <strong>GitHub Actions</strong> or similar CI/CD runners, providing automated performance evaluation and results tracking.
+      Simulations are run using <strong>SUMO</strong> (Simulation of Urban Mobility), executed within a <strong>GitHub Actions</strong> runner or similar CI/CD environment, providing automated performance evaluation and results tracking.
     </p>
   </div>
 </section>
