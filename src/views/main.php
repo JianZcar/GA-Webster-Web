@@ -13,7 +13,7 @@
   <div x-data="{ current: 'roadedit' }" class="h-full flex flex-col">
 
     <!-- Tabs -->
-    <div class="flex h-16 px-4 pt-4 gap-4 text-sm">
+    <div class="flex min-h-14 px-4 pt-4 gap-4 text-sm">
       <button
         class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
         :class="{ 'font-bold border-b-2 border-black': current === 'roadedit' }"
