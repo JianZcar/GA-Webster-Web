@@ -53,7 +53,6 @@
           <button id="toggleTraffic" class="btn btn-sm btn-secondary px-3 py-1 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">Traffic: Right-Hand</button>
         </form>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/d3/dist/d3.min.js"></script>
       <?php esbuild("road-editor", 'ts', true); ?>
     </div>
   </div>
