@@ -1,5 +1,5 @@
 <!-- Hero -->
-<section class="text-center py-20 px-6 bg-white shadow-md">
+<section class="text-center py-20 px-6 bg-white shadow-md motion-opacity-in-0 motion-translate-y-in-100 motion-blur-in-md">
   <div class="max-w-4xl mx-auto space-y-8">
     <h1 class="text-5xl font-extrabold text-gray-900">We are Bether</h1>
 
@@ -18,11 +18,11 @@
 </section>
 
 <!-- Team Section -->
-<section class="max-w-5xl mx-auto py-12 px-4">
+<section class="max-w-5xl mx-auto py-12 px-4 motion-opacity-in-0 motion-translate-y-in-100 motion-blur-in-md">
   <h2 class="text-2xl font-semibold text-center mb-10">Our Team</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
     <a class="text-center" href="https://github.com/JovTim">
-      <div class="w-24 h-24 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
@@ -35,7 +35,7 @@
     </a>
 
     <a class="text-center" href="https://github.com/JianZcar">
-      <div class="w-24 h-24 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
@@ -48,7 +48,7 @@
     </a>
 
     <a class="text-center" href="https://github.com/uzzielkyle">
-      <div class="w-24 h-24 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
@@ -61,7 +61,7 @@
     </a>
 
     <a class="text-center" href="https://github.com/Carl2121">
-      <div class="w-24 h-24 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
