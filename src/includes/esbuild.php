@@ -8,7 +8,7 @@ function esbuild(string $name, string $loader, bool $minify): void
 
   $code = file_get_contents($path);
 ?>
-  <script>
+  <script defer>
     function callRunWhenReady() {
       window.run(
         <?php echo json_encode($name); ?>,
