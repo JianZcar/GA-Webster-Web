@@ -7,6 +7,7 @@
   <title>GAxWebster</title>
   <?php require_once(__DIR__ . '/../includes/imports.php'); ?>
   <script src="https://cdn.jsdelivr.net/npm/d3/dist/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js"></script>
 </head>
 
 <body class="h-full m-0 p-0">
@@ -23,6 +24,16 @@
         hx-target="#content"
         hx-swap="innerHTML">
         Road Editor
+      </button>
+      <button
+        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
+        :class="{ 'font-bold border-b-2 border-black': current === 'edit' }"
+        :disabled="current === 'edit'"
+        @click="current = 'edit'"
+        hx-get="/edit"
+        hx-target="#content"
+        hx-swap="innerHTML">
+        XML Editor
       </button>
       <button
         class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
