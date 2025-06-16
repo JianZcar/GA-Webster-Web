@@ -47,9 +47,9 @@
           <input type="text" id="edgeTo" class="w-24 py-1 px-2 text-sm rounded-md" x-model="toValue" disabled />
         </div>
 
-        <button id="updateElement" class="btn btn-sm btn-primary me-2 px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+        <button id="updateElement" class="btn btn-soft btn-primary"
           x-show="(idValue !== oID && idValue !== '') || (xValue * 1 !== oNodeX * 1 && xValue * 1 !== '') || (yValue * 1 !== oNodeY * 1 && yValue !== '') || typeValue !== oNodeType">Update</button>
-        <button id="toggleTraffic" class="btn btn-sm btn-secondary px-3 py-1 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">Traffic: Right-Hand</button>
+        <button id="toggleTraffic" class="btn btn-soft btn-secondary">Traffic: Right-Hand</button>
       </form>
     </div>
     <?php esbuild("road-editor", 'ts', true); ?>

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwindcss-motion";
+@plugin "daisyui";
 
 svg {
   cursor: crosshair;
@@ -16,7 +17,6 @@ dialog {
 
 .node-label,
 .edge-label {
-  font-size: 10px;
   text-anchor: middle;
   pointer-events: none;
 }

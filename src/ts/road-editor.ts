@@ -5,6 +5,29 @@ interface HTMLElement {
 (() => {
   const svg = d3.select<SVGSVGElement, unknown>("#network");
 
+  svg.append("style").text(`
+    .node-label,
+    .edge-label {
+      font-size: 10px;
+      text-anchor: middle;
+      pointer-events: none;
+      fill: black;
+    }
+    .edge {
+      stroke: #555;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .node-label,
+      .edge-label {
+        fill: white;
+      }
+      .edge {
+        stroke: white;
+      }
+    }
+  `);
+
   let width = 0;
   let height = 0;
 
@@ -59,6 +82,7 @@ interface HTMLElement {
   const defs = g.append<SVGDefsElement>("defs");
   defs.append<SVGMarkerElement>("marker")
     .attr("id", "arrow")
+    .attr("class", "edge")
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 15)
     .attr("refY", 0)
@@ -66,8 +90,7 @@ interface HTMLElement {
     .attr("markerHeight", 6)
     .attr("orient", "auto")
     .append<SVGPathElement>("path")
-    .attr("d", "M0,-5L10,0L0,5")
-    .attr("fill", "#555");
+    .attr("d", "M0,-5L10,0L0,5");
 
   interface Node {
     id: string;
@@ -220,7 +243,7 @@ interface HTMLElement {
             });
 
           gEdge.append<SVGLineElement>("line")
-            .attr("stroke", "#555")
+            .attr("class", "edge")
             .attr("stroke-width", 2)
             .attr("marker-end", "url(#arrow)");
 

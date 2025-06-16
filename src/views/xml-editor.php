@@ -9,7 +9,21 @@
     fontSize: "16px"
   });
 
+  // Log changes
   window.aceEditorInstance.getSession().on("change", () => {
-    console.log(window.aceEditorInstance.getValue());
+    console.log(editor.getValue());
   });
+
+  // Function to apply theme based on dark mode
+  function applyTheme() {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = isDark ? "ace/theme/monokai" : "ace/theme/chrome";
+    window.aceEditorInstance.setTheme(theme);
+  }
+
+  // Initial theme application
+  applyTheme();
+
+  // Optional: Listen for system dark/light mode changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", applyTheme);
 </script>

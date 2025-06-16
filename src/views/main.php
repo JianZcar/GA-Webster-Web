@@ -15,36 +15,20 @@
 
     <!-- Tabs -->
     <div class="flex min-h-14 px-4 pt-4 gap-4 text-sm">
-      <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
-        :class="{ 'font-bold border-b-2 border-black': current === 'roadedit' }"
-        :disabled="current === 'roadedit'"
-        @click="current = 'roadedit'"
-        hx-get="/roadedit"
-        hx-target="#content"
-        hx-swap="innerHTML">
-        Road Editor
-      </button>
-      <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
-        :class="{ 'font-bold border-b-2 border-black': current === 'edit' }"
-        :disabled="current === 'edit'"
-        @click="current = 'edit'"
-        hx-get="/edit"
-        hx-target="#content"
-        hx-swap="innerHTML">
-        XML Editor
-      </button>
-      <button
-        class="px-4 py-2 rounded-lg hover:bg-gray-300 transition-all duration-50"
-        :class="{ 'font-bold border-b-2 border-black': current === 'about' }"
-        :disabled="current === 'about'"
-        @click="current = 'about'"
-        hx-get="/about"
-        hx-target="#content"
-        hx-swap="innerHTML">
-        About
-      </button>
+      <div class="tabs tabs-box">
+        <input type="radio" name="nav-tab" class="tab" aria-label="Road Editor" checked="checked"
+          hx-get="/roadedit"
+          hx-target="#content"
+          hx-swap="innerHTML" />
+        <input type="radio" name="nav-tab" class="tab" aria-label="XML Editor"
+          hx-get="/edit"
+          hx-target="#content"
+          hx-swap="innerHTML" />
+        <input type="radio" name="nav-tab" class="tab" aria-label="About"
+          hx-get="/about"
+          hx-target="#content"
+          hx-swap="innerHTML" />
+      </div>
     </div>
 
     <!-- HTMX content container -->

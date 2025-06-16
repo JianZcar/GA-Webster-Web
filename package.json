@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@types/d3": "^7.4.3",
+    "daisyui": "^5.0.43",
     "tailwindcss-motion": "^1.1.1"
   },
   "dependencies": {
