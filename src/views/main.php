@@ -11,24 +11,26 @@
 </head>
 
 <body class="h-full m-0 p-0">
-  <div x-data="{ current: 'roadedit' }" class="h-full flex flex-col">
-
-    <!-- Tabs -->
-    <div class="flex min-h-14 px-4 pt-4 gap-4 text-sm">
-      <div class="tabs tabs-box">
-        <input type="radio" name="nav-tab" class="tab" aria-label="Road Editor" checked="checked"
-          hx-get="/roadedit"
-          hx-target="#content"
-          hx-swap="innerHTML" />
-        <input type="radio" name="nav-tab" class="tab" aria-label="XML Editor"
-          hx-get="/edit"
-          hx-target="#content"
-          hx-swap="innerHTML" />
-        <input type="radio" name="nav-tab" class="tab" aria-label="About"
-          hx-get="/about"
-          hx-target="#content"
-          hx-swap="innerHTML" />
+  <div class="h-full flex flex-col">
+    <div class="navbar bg-base-100 shadow-sm">
+      <div class="navbar-start"></div>
+      <div class="navbar-center">
+        <div class="tabs tabs-box">
+          <input type="radio" name="nav-tab" class="tab" aria-label="Road Editor" checked="checked"
+            hx-get="/roadedit"
+            hx-target="#content"
+            hx-swap="innerHTML" />
+          <input type="radio" name="nav-tab" class="tab" aria-label="XML Editor"
+            hx-get="/edit"
+            hx-target="#content"
+            hx-swap="innerHTML" />
+          <input type="radio" name="nav-tab" class="tab" aria-label="About"
+            hx-get="/about"
+            hx-target="#content"
+            hx-swap="innerHTML" />
+        </div>
       </div>
+      <div class="navbar-end"></div>
     </div>
 
     <!-- HTMX content container -->
