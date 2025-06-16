@@ -38,7 +38,8 @@ $router->get('/about', function () use ($app) {
 });
 
 $router->get('/edit', function () use ($app) {
-  $app->render('xml-editor');
+  require_htmx($app);
+  echo $app->view()->fetch('xml-editor');
 });
 
 

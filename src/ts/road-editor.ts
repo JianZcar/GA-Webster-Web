@@ -382,6 +382,7 @@ interface HTMLElement {
     nodeGroup.select<SVGTextElement>("text.node-label")
       .attr("x", d => d.x)
       .attr("y", d => d.y + 20);
+    (window as any).saveGraphState();
   }
 
   // Create nodes on svg click (background)
@@ -496,5 +497,29 @@ interface HTMLElement {
     trafficButton.textContent = `Traffic: Right-Hand`;
   }
 
-  updateGraph();
+  (window as any).saveGraphState = function() {
+    (window as any).nodes = JSON.parse(JSON.stringify(nodes));
+    (window as any).edges = JSON.parse(JSON.stringify(edges));
+  };
+
+  (window as any).loadGraphState = function() {
+    const savedNodes = (window as any).nodes || [];
+    const savedEdges = (window as any).edges || [];
+    nodes.length = 0;
+    edges.length = 0;
+    nodes.push(...savedNodes);
+    edges.push(...savedEdges);
+
+    // Recalculate counters
+    nodeCounter = nodes.reduce((max, n) => Math.max(max, parseInt(n.id.replace(/\D/g, ''))), 0);
+    edgeCounter = edges.reduce((max, e) => Math.max(max, parseInt(e.id.replace(/\D/g, ''))), 0);
+
+    selectedNode = null;
+    selectedEdge = null;
+    fromNode = null;
+    updateInputs(null);
+    updateGraph();
+  };
+
+  (window as any).loadGraphState();
 })();
