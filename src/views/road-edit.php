@@ -2,7 +2,7 @@
 <div class="w-full h-full p-4">
   <div class="w-full h-full relative border-2 border-slate-500/50 shadow-md rounded-lg overflow-hidden">
     <div class="skeleton absolute inset-0"></div>
-    <svg id="network" class="absolute inset-0 w-full h-full bg-base-100"></svg>
+    <svg id="network" class="absolute inset-0 w-full h-full bg-base-100 opacity-0 duration-500"></svg>
 
     <div id="header" class="absolute top-4 left-4 rounded-md w-48 flex items-center p-2 backdrop-blur-sm shadow-sm" x-data="{ data: true }">
       <form id="properties" class="w-full flex flex-col gap-4 items-center"

@@ -528,4 +528,9 @@ interface HTMLElement {
   };
 
   (window as any).loadGraphState();
+  if ((window as any).roadEditCached) {
+    document.getElementById('network')?.classList.replace('duration-500', 'duration-150');
+  };
+  document.getElementById('network')?.classList.replace('opacity-0', 'opacity-100');
+  (window as any).roadEditCached = true;
 })();

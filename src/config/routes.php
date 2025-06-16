@@ -42,7 +42,6 @@ $router->get('/edit', function () use ($app) {
   echo $app->view()->fetch('xml-editor');
 });
 
-
 $router->get('/login', function () use ($app) {
   if (empty($_SESSION['username']) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
     $app->render('login');
