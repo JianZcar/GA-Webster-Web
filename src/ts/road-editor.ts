@@ -195,6 +195,12 @@ interface HTMLElement {
 
   // Center initial zoom and pan
   svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2));
+  (window as any).resetZoom = function() {
+    svg
+      .transition()
+      .duration(500)
+      .call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2));
+  };
 
   // Temporary edge line during edge creation
   const tempEdgeLine = g.append<SVGLineElement>("line")
