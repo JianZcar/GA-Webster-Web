@@ -11,7 +11,7 @@
 
   // Log changes
   window.aceEditorInstance.getSession().on("change", () => {
-    console.log(editor.getValue());
+    console.log(window.aceEditorInstance.getValue());
   });
 
   // Function to apply theme based on dark mode
