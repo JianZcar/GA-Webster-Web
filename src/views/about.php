@@ -22,7 +22,8 @@
   <h2 class="text-2xl font-semibold text-center mb-10">Our Team</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
     <a class="text-center" href="https://github.com/JovTim">
-      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md overflow-hidden relative">
+        <div class="skeleton absolute inset-0"></div>
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
@@ -35,7 +36,8 @@
     </a>
 
     <a class="text-center" href="https://github.com/JianZcar">
-      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md overflow-hidden relative">
+        <div class="skeleton absolute inset-0"></div>
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
@@ -48,7 +50,8 @@
     </a>
 
     <a class="text-center" href="https://github.com/uzzielkyle">
-      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md overflow-hidden relative">
+        <div class="skeleton absolute inset-0"></div>
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
@@ -61,7 +64,8 @@
     </a>
 
     <a class="text-center" href="https://github.com/Carl2121">
-      <div class="w-30 h-30 rounded-full mx-auto shadow-md bg-gray-300 overflow-hidden relative">
+      <div class="w-30 h-30 rounded-full mx-auto shadow-md overflow-hidden relative">
+        <div class="skeleton absolute inset-0"></div>
         <img
           x-data="{ loaded: false }"
           @load="loaded = true"
