@@ -14,7 +14,7 @@ A web-based platform where my team and I aim to streamline our simulation workfl
 
 ### 📝 XML Editor (Work in Progress)
 
-* ❌ In-browser XML editing
+* ✅ In-browser XML editing
 * ❌ XML import
 * ❌ XML export
 
